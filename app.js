@@ -44,7 +44,7 @@ function getCompany(contributor_url) {
             //parse the response into a JSON object
             var profile = JSON.parse(body);
             //get the company name
-            var company = profile['comapny'];
+            var company = profile['company'];
             //if the comapny is null, return unknown
             if(company == null){
                 return 'unknown'
