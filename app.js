@@ -7,7 +7,15 @@ var contributors_list = 'https://api.github.com/repos/cla-assistant/cla-assistan
 //and creating more readable code
 function company_dictionary() { };
 
+company_dictionary.prototype.countCompany = function (company_name) {
+    //if the company doesn't exist already in the dictionary, create it
 
+    // else increment the count
+}
+
+company_dictionary.prototype.getCompanyCount = function (company_name) {
+    //return the count
+}
 
 //main logic
 request(contributors_list, function (error, response, body) {
