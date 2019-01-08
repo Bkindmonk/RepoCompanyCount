@@ -9,12 +9,15 @@ function company_dictionary() { };
 
 company_dictionary.prototype.countCompany = function (company_name) {
     //if the company doesn't exist already in the dictionary, create it
-
-    // else increment the count
+    if (!(company_name in company_dictionary)) {
+        company_dictionary[company_name] = 0;
+    }
+    // increment the count
+    company_dictionary[company_name] += 1;
 }
 
 company_dictionary.prototype.getCompanyCount = function (company_name) {
-    //return the count
+    return company_dictionary[company_name];
 }
 
 //main logic
