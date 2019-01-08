@@ -30,43 +30,7 @@ function getCompanyCount (company_name) {
     return company_dictionary[company_name];
 }
 
-/*
-function getCompany(contributor_url) {
-    var contributor_connection = {
-        url: contributor_url,
-        headers: {
-            'User-Agent': 'request'
-        }
-    }
-    
-    //request the company for each contributor
-    request(contributor_connection, function(error, response, body){
-        
-        //if there was no error in the communication or request, proceed
-        if(!error && response.statusCode ==200){
-            //parse the response into a JSON object
-            var profile = JSON.parse(body);
-            //get the company name
-            var company = profile['company'];
-            //if the comapny is null, return unknown
-            if(company == null){
-                countCompany('unknown');
-                callback_count +=1;
-            }else{
-                countCompany(company);
-                callback_count +=1;
-            }
-        }else{
-            console.error('error for '+contributor_url)
-            callback_count +=1;
-            //in case of communication error, print it to the console for debugging
-        }
-        
-    });
 
-    
-}
-*/
 //main logic
 request(connection, function (error, response, body) {
 
@@ -80,16 +44,18 @@ request(connection, function (error, response, body) {
         
         //get the company for each entry and add them to the dictionary
         for (var contributor_data in contributors) {
-            var contributor_url = contributors[contributor_data]['url']
             
-            var contributor_connection = {
-                url: contributor_url,
-                headers: {
-                    'User-Agent': 'request'
-                }
-            }
+            
 
             contributor_task_list.push(function(callback){
+                var contributor_url = contributors[contributor_data]['url']
+                var contributor_connection = {
+                    url: contributor_url,
+                    headers: {
+                        'User-Agent': 'request'
+                    }
+                }
+
                 request(contributor_connection, function(error, response, body){
                     //if there was no error in the communication or request, proceed
                     if(!error && response.statusCode ==200){
@@ -97,7 +63,6 @@ request(connection, function (error, response, body) {
                         var profile = JSON.parse(body);
                         //get the company name
                         var company = profile['company'];
-                        console.log(company);
                         //if the comapny is null, count unknown
                         if(company == null){
                             countCompany('unknown');
@@ -129,7 +94,7 @@ request(connection, function (error, response, body) {
 
     }else{
         //if there was an error with the connection, print the error and result code
-        console.log(response.statusCode);
-        console.log(response.body);
+        console.error(response.statusCode);
+        console.error(response.body);
     }
 });
