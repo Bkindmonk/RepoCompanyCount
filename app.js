@@ -2,6 +2,8 @@
 var request = require('request');
 var contributors_list = 'https://api.github.com/repos/cla-assistant/cla-assistant/contributors';
 
+
+//connection object to house the headers, as the GitHub server requires it
 var connection = {
     url: contributors_list,
     headers: {
@@ -28,6 +30,10 @@ company_dictionary.getCompanyCount = function (company_name) {
     return company_dictionary[company_name];
 }
 
+function getCompany(contributor_url) {
+    //request the company for each contributor
+}
+
 //main logic
 request(connection, function (error, response, body) {
  
@@ -37,9 +43,17 @@ request(connection, function (error, response, body) {
         var contributors = JSON.parse(body);
 
         //get the company for each entry and add them to the dictionary
-        company_dictionary.countCompany("test1");
+        for (var contributor_data in contributors) {
+            var company = getCompany(contributor_data['url']);
+
+            //count the company
+            comapny_dictionary.countCompany(company);
+        }
+
         //for each entry in the dictionary print the count
-        console.log(company_dictionary.getCompanyCount("test1"));
+        for (var comapny_name in comapny_dictionary) {
+            console.log(comapny_name + " " + comapny_dictionary.getCompanyCount(comapny_name));
+        }
         
     }
 });
