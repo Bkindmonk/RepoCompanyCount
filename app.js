@@ -108,9 +108,11 @@ request(connection, function (error, response, body) {
                         console.error('error for '+contributor_url)
                         //in case of communication error, print it to the console for debugging
                     }
+                    //lets async know it is done
+                    callback();
                 });
-                //lets async know it is done
-                callback();
+                
+                
             });
             
         }
@@ -118,9 +120,8 @@ request(connection, function (error, response, body) {
         async.parallel(contributor_task_list, function(error,results){
             //after all the async calls have finished
             //for each entry in the dictionary print the count
-            for (var comapny_name in company_dictionary) {
-                var company_count = getCompanyCount(comapny_name);
-                console.log(comapny_name + " " + company_count);
+            for (var company_name in company_dictionary) {
+                console.log(company_name + " " + getCompanyCount(company_name));
             }
         });
 
