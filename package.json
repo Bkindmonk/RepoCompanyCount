@@ -1,0 +1,9 @@
+{
+  "name": "repo-company-count",
+  "version": "0.0.0",
+  "description": "RepoCompanyCount",
+  "main": "app.js",
+  "author": {
+    "name": "Nick"
+  }
+}
